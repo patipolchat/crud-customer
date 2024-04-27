@@ -1,0 +1,10 @@
+version: 3
+tasks:
+  auto-migrate:
+    desc: "Auto migrate database"
+    cmds:
+      - go run . autoMigrate
+  serve-api:
+    desc: "Run the application"
+    cmds:
+      - go run . serveApi
