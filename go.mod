@@ -3,8 +3,8 @@ module crud-customer
 go 1.22
 
 require (
-	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/glebarez/sqlite v1.11.0
+	github.com/go-faker/faker/v4 v4.4.1
 	github.com/go-playground/validator/v10 v10.19.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/labstack/gommon v0.4.2

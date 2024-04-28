@@ -14,6 +14,7 @@
 ## Run Project
 1. Create config.yaml
 2. Migrate DB - `task auto-migrate`
+3. Run Seed - `task seed`
 3. Generate mockery - `task gen`
 4. Serve Http Server with cobra command - `task serve-api`
 5. Run test with coverage - `task test`

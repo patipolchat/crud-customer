@@ -9,6 +9,7 @@ import (
 type GormDB interface {
 	GetDB() *gorm.DB
 	AutoMigrate() error
+	Seed() error
 }
 
 type gormDB struct {

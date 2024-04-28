@@ -17,3 +17,8 @@ tasks:
     desc: "Run tests"
     cmds:
       - go test ./app/... -cover
+  seed:
+    desc: "Seed database"
+    cmds:
+      - go run . autoMigrate
+      - go run . seed
