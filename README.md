@@ -39,3 +39,5 @@ server:
 database:
   file: "tmp/customer.db"
 ```
+## Test Coverage
+![coverage](https://github.com/patipolchat/crud-customer/assets/25928800/6308cb90-8469-4233-88e6-3ffdfa3ac4be)
