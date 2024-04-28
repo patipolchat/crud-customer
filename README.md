@@ -4,6 +4,8 @@
 - DB - SQLite
 - DB ORM - GORM
 - CMD - Cobra Cli
+- Test Framework - Testify
+- Env - Viper
 
 ## Require
 - Go1.22
