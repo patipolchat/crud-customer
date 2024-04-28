@@ -6,6 +6,7 @@
 - CMD - Cobra Cli
 - Test Framework - Testify
 - Env - Viper
+- Mock - Mockery
 
 ## Require
 - Go1.22
