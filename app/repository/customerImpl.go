@@ -21,7 +21,8 @@ func (c *customerImpl) CreateCustomer(ctx context.Context, customer *entity.Cust
 }
 
 func (c *customerImpl) UpdateCustomer(ctx context.Context, id uint, customer *entity.Customer) (*entity.Customer, error) {
-	result := c.db.WithContext(ctx).Where("id = ?", id).Updates(customer)
+	result := c.db.WithContext(ctx).Raw("UPDATE customers set name = ?, age = ? where id = ? RETURNING *", customer.Name, customer.Age, id).Scan(&customer)
+
 	if result.Error != nil {
 		return nil, result.Error
 	}

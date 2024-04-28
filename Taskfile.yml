@@ -8,3 +8,12 @@ tasks:
     desc: "Run the application"
     cmds:
       - go run . serveApi
+  gen:
+    desc: "Generate mocks"
+    cmds:
+      - go generate ./...
+      - docker run -v "$PWD":/src -w /src vektra/mockery --all
+  test:
+    desc: "Run tests"
+    cmds:
+      - go test ./app/... -cover

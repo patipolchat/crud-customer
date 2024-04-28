@@ -47,3 +47,8 @@ func NewErrorResponse(statusCode int, message string) error {
 	}
 	return echo.NewHTTPError(statusCode, resp)
 }
+
+func NewBindingErrorResponse(err error) error {
+	bindingErr := err.(*echo.HTTPError)
+	return NewErrorResponse(bindingErr.Code, bindingErr.Message.(string))
+}

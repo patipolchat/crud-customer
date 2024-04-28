@@ -1,0 +1,15 @@
+with-expecter: True
+inpackage: True
+dir: mocks/{{ replaceAll .InterfaceDirRelative "internal" "internal_" }}
+mockname: "{{.InterfaceName}}"
+outpkg: "{{.PackageName}}"
+filename: "{{.InterfaceName}}.go"
+all: True
+packages:
+  crud-customer/app/service:
+    config:
+      recursive: True
+  crud-customer/app/repository:
+    config:
+      recursive: True
+

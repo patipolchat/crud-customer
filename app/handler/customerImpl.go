@@ -17,10 +17,10 @@ type customerImpl struct {
 func (cu *customerImpl) CreateCustomer(c echo.Context) error {
 	req := new(CreateCustomerRequest)
 	if err := c.Bind(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error binding request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 	if err := c.Validate(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error validating request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 
 	customer, err := cu.customerService.CreateCustomer(c.Request().Context(), req.Name, req.Age)
@@ -44,10 +44,10 @@ func (cu *customerImpl) CreateCustomer(c echo.Context) error {
 func (cu *customerImpl) UpdateCustomer(c echo.Context) error {
 	req := new(UpdateCustomerRequest)
 	if err := c.Bind(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error binding request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 	if err := c.Validate(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error validating request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 
 	_, err := cu.customerService.GetCustomerByID(c.Request().Context(), req.ID)
@@ -61,7 +61,7 @@ func (cu *customerImpl) UpdateCustomer(c echo.Context) error {
 	})
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, fmt.Errorf("error updating customer: %v", err))
+		return NewErrorResponse(http.StatusInternalServerError, fmt.Sprintf("error updating customer: %v", err))
 	}
 
 	resp := &CreateUpdateCustomerResponse{
@@ -80,7 +80,7 @@ func (cu *customerImpl) UpdateCustomer(c echo.Context) error {
 func (cu *customerImpl) DeleteCustomer(c echo.Context) error {
 	req := new(DeleteCustomerRequest)
 	if err := c.Bind(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error binding request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 	if err := c.Validate(req); err != nil {
 		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error validating request: %v", err))
@@ -93,7 +93,7 @@ func (cu *customerImpl) DeleteCustomer(c echo.Context) error {
 
 	err = cu.customerService.DeleteCustomer(c.Request().Context(), req.ID)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, fmt.Errorf("error deleting customer: %v", err))
+		return NewErrorResponse(http.StatusInternalServerError, fmt.Sprintf("error deleting customer: %v", err))
 	}
 
 	resp := &DeleteCustomerResponse{
@@ -107,15 +107,15 @@ func (cu *customerImpl) DeleteCustomer(c echo.Context) error {
 func (cu *customerImpl) GetCustomerByID(c echo.Context) error {
 	req := new(GetCustomerByIDRequest)
 	if err := c.Bind(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error binding request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 	if err := c.Validate(req); err != nil {
-		return NewErrorResponse(http.StatusBadRequest, fmt.Sprintf("error validating request: %v", err))
+		return NewBindingErrorResponse(err)
 	}
 
 	customer, err := cu.customerService.GetCustomerByID(c.Request().Context(), req.ID)
 	if err != nil {
-		return NewErrorResponse(http.StatusNotFound, fmt.Sprintf("customer not found: %v", err))
+		return NewErrorResponse(http.StatusNotFound, fmt.Sprintf("error getting customer: %v", err))
 	}
 
 	resp := &GetCustomerByIDResponse{
