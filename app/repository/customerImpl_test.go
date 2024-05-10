@@ -17,9 +17,10 @@ type CustomerImplTestSuite struct {
 	customer  Customer
 	tmpDBFile *os.File
 	db        *gorm.DB
+	tx        *gorm.DB
 }
 
-func (s *CustomerImplTestSuite) SetupTest() {
+func (s *CustomerImplTestSuite) SetupSuite() {
 	f, err := os.CreateTemp("", "test.*.db")
 	if err != nil {
 		panic(err)
@@ -33,13 +34,20 @@ func (s *CustomerImplTestSuite) SetupTest() {
 	if err := s.db.AutoMigrate(&entity.Customer{}); err != nil {
 		panic(err)
 	}
+}
 
-	s.customer = NewCustomer(s.db, &config.Config{})
+func (s *CustomerImplTestSuite) TearDownSuite() {
+	os.Remove(s.tmpDBFile.Name())
+	s.db = nil
+}
+
+func (s *CustomerImplTestSuite) SetupTest() {
+	s.tx = s.db.Begin()
+	s.customer = NewCustomer(s.tx, &config.Config{})
 }
 
 func (s *CustomerImplTestSuite) TearDownTest() {
-	os.Remove(s.tmpDBFile.Name())
-	s.db = nil
+	s.tx.Rollback()
 	s.customer = nil
 }
 
@@ -68,7 +76,7 @@ func (s *CustomerImplTestSuite) TestCreateCustomerError() {
 }
 
 func (s *CustomerImplTestSuite) TestUpdateCustomerSuccess() {
-	result := s.db.Create(&entity.Customer{
+	result := s.tx.Create(&entity.Customer{
 		Name: typehelper.GetPointer("John Doe"),
 		Age:  typehelper.GetPointer(uint(20)),
 	})
@@ -91,7 +99,7 @@ func (s *CustomerImplTestSuite) TestUpdateCustomerSuccess() {
 }
 
 func (s *CustomerImplTestSuite) TestUpdateCustomerError() {
-	result := s.db.Create(&entity.Customer{
+	result := s.tx.Create(&entity.Customer{
 		Name: typehelper.GetPointer("John Doe"),
 		Age:  typehelper.GetPointer(uint(20)),
 	})
@@ -108,7 +116,7 @@ func (s *CustomerImplTestSuite) TestUpdateCustomerError() {
 }
 
 func (s *CustomerImplTestSuite) TestGetCustomerByIDSuccess() {
-	result := s.db.Create(&entity.Customer{
+	result := s.tx.Create(&entity.Customer{
 		Name: typehelper.GetPointer("John Doe"),
 		Age:  typehelper.GetPointer(uint(20)),
 	})
@@ -134,7 +142,7 @@ func (s *CustomerImplTestSuite) TestGetCustomerByIDError() {
 }
 
 func (s *CustomerImplTestSuite) TestDeleteCustomerSuccess() {
-	result := s.db.Create(&entity.Customer{
+	result := s.tx.Create(&entity.Customer{
 		Name: typehelper.GetPointer("John Doe"),
 		Age:  typehelper.GetPointer(uint(20)),
 	})
@@ -147,7 +155,7 @@ func (s *CustomerImplTestSuite) TestDeleteCustomerSuccess() {
 }
 
 func (s *CustomerImplTestSuite) TestGetAllCustomerSuccess() {
-	result := s.db.Create(&entity.Customer{
+	result := s.tx.Create(&entity.Customer{
 		Name: typehelper.GetPointer("John Doe"),
 		Age:  typehelper.GetPointer(uint(20)),
 	})
