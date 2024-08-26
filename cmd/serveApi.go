@@ -25,6 +25,9 @@ var serveApiCmd = &cobra.Command{
 		if err != nil {
 			panic(err)
 		}
+		if err := db.AutoMigrate(); err != nil {
+			panic("failed to automigrate")
+		}
 		serv := server.NewServer(cfg)
 		app := app.NewApp(cfg, db, serv)
 		app.Start()

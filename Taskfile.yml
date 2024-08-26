@@ -22,3 +22,20 @@ tasks:
     cmds:
       - go run . autoMigrate
       - go run . seed
+  deploy:
+    desc: "Deploy application"
+    cmds:
+      - eval $(minikube docker-env)
+      - docker build -t crud-app:latest .
+      - kubectl create configmap crud-app-config --from-file=config.yaml
+      - kubectl apply -f k8s/deployment.yaml
+      - kubectl apply -f k8s/service.yaml
+      - kubectl apply -f k8s/ingress.yaml
+  reset-k8s:
+    desc: "Reset k8s"
+    cmds:
+      - eval $(minikube docker-env)
+      - kubectl delete configmap crud-app-config
+      - kubectl delete -f k8s/deployment.yaml
+      - kubectl delete -f k8s/service.yaml
+      - kubectl delete -f k8s/ingress.yaml
