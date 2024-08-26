@@ -2,7 +2,7 @@ package server
 
 import (
 	"crud-customer/config"
-	"crud-customer/util/server"
+	"crud-customer/pkg/echo_server"
 	"github.com/labstack/echo/v4"
 )
 
@@ -13,7 +13,7 @@ type Server interface {
 }
 
 type serverImpl struct {
-	server.EchoServer
+	echo_server.EchoServer
 	AppConfig *config.Config
 }
 
@@ -22,7 +22,7 @@ func (s *serverImpl) GetEchoApp() *echo.Echo {
 }
 
 func NewServer(cfg *config.Config) Server {
-	echoConf := &server.Config{
+	echoConf := &echo_server.Config{
 		Port:         cfg.Server.Port,
 		Timeout:      cfg.Server.Timeout,
 		AllowOrigins: cfg.Server.AllowOrigins,
@@ -30,7 +30,7 @@ func NewServer(cfg *config.Config) Server {
 		LogLevel:     cfg.Server.LogLevel,
 	}
 	return &serverImpl{
-		EchoServer: server.NewEchoServer(echoConf),
+		EchoServer: echo_server.NewEchoServer(echoConf),
 		AppConfig:  cfg,
 	}
 }

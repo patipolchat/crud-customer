@@ -4,10 +4,10 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"crud-customer/app"
 	"crud-customer/config"
-	"crud-customer/database"
-	"crud-customer/server"
+	"crud-customer/internal/http"
+	"crud-customer/pkg/database"
+	"crud-customer/pkg/server"
 	"crud-customer/util"
 	"github.com/spf13/cobra"
 )
@@ -29,7 +29,7 @@ var serveApiCmd = &cobra.Command{
 			panic("failed to automigrate")
 		}
 		serv := server.NewServer(cfg)
-		app := app.NewApp(cfg, db, serv)
+		app := http.NewApp(cfg, db, serv)
 		app.Start()
 	},
 }

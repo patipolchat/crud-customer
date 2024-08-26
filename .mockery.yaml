@@ -6,10 +6,10 @@ outpkg: "{{.PackageName}}"
 filename: "{{.InterfaceName}}.go"
 all: True
 packages:
-  crud-customer/app/service:
+  crud-customer/internal/service:
     config:
       recursive: True
-  crud-customer/app/repository:
+  crud-customer/internal/repository:
     config:
       recursive: True
 

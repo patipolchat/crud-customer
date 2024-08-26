@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"crud-customer/app/service"
 	"crud-customer/config"
-	"crud-customer/entity"
+	"crud-customer/internal/entity"
+	"crud-customer/internal/service"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"

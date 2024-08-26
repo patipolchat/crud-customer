@@ -5,7 +5,7 @@ package cmd
 
 import (
 	"crud-customer/config"
-	"crud-customer/database"
+	"crud-customer/pkg/database"
 	"crud-customer/util"
 	"fmt"
 	"github.com/spf13/cobra"

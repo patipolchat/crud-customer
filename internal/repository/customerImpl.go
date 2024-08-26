@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 	"crud-customer/config"
-	"crud-customer/entity"
+	"crud-customer/internal/entity"
 	"gorm.io/gorm"
 )
 

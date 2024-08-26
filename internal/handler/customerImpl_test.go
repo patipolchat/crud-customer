@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"crud-customer/app/service"
 	"crud-customer/config"
-	"crud-customer/entity"
-	mockservice "crud-customer/mocks/app/service"
+	"crud-customer/internal/entity"
+	"crud-customer/internal/service"
+	mockservice "crud-customer/mocks/internal_/service"
 	"crud-customer/util/typehelper"
 	"crud-customer/util/validator"
 	"encoding/json"

@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 	"crud-customer/config"
-	"crud-customer/entity"
-	mockrepo "crud-customer/mocks/app/repository"
+	"crud-customer/internal/entity"
+	mockrepo "crud-customer/mocks/internal_/repository"
 	"crud-customer/util/typehelper"
 	"fmt"
 	"github.com/stretchr/testify/mock"

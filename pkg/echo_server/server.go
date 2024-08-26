@@ -1,4 +1,4 @@
-package server
+package echo_server
 
 import (
 	"context"

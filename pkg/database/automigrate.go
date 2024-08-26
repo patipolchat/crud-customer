@@ -1,7 +1,7 @@
 package database
 
 import (
-	"crud-customer/entity"
+	"crud-customer/internal/entity"
 	"github.com/go-faker/faker/v4"
 	"math/rand"
 )

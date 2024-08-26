@@ -1,10 +1,10 @@
-package app
+package http
 
 import (
 	"crud-customer/config"
-	"crud-customer/database"
-	v1 "crud-customer/routes/api/v1"
-	"crud-customer/server"
+	"crud-customer/internal/http/routes/api/v1"
+	"crud-customer/pkg/database"
+	"crud-customer/pkg/server"
 )
 
 type App struct {

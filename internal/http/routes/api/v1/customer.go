@@ -1,11 +1,11 @@
 package v1
 
 import (
-	"crud-customer/app/handler"
-	"crud-customer/app/repository"
-	"crud-customer/app/service"
 	"crud-customer/config"
-	"crud-customer/database"
+	"crud-customer/internal/handler"
+	"crud-customer/internal/repository"
+	"crud-customer/internal/service"
+	"crud-customer/pkg/database"
 	"github.com/labstack/echo/v4"
 )
 

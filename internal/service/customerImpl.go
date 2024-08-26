@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"crud-customer/app/repository"
 	"crud-customer/config"
-	"crud-customer/entity"
+	"crud-customer/internal/entity"
+	"crud-customer/internal/repository"
 )
 
 type customerImpl struct {

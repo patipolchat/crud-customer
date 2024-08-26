@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"crud-customer/entity"
+	"crud-customer/internal/entity"
 )
 
 type Customer interface {
